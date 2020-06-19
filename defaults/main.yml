@@ -1,0 +1,19 @@
+---
+
+# Use a specific version of sshuttle, eg. `1.0.0`. Specify `false` for latest.
+sshuttle_version: false
+
+# Installation directory to put sshuttle virtual environments.
+sshuttle_install_dir: "{{ ansible_user_dir }}/.virtualenvs"
+
+# Name for the currently active sshuttle Virtualenv.
+sshuttle_current_dirname: sshuttle
+
+# Install a venv helper to launch virtualenv executables from a "bin" directory
+sshuttle_install_venv_helper: true
+
+# "bin" directory for venv helper installation
+sshuttle_bin_dir: "{{ ansible_user_dir }}/bin"
+
+# Allow role to install OS dependencies.
+sshuttle_install_os_dependencies: false

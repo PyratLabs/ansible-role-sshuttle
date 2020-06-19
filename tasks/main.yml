@@ -1,0 +1,17 @@
+---
+
+- import_tasks: pre-checks-os.yml
+
+- include_tasks: "{{ ansible_os_family | lower }}/install-os-dependencies.yml"
+  when: sshuttle_install_os_dependencies is defined
+        and sshuttle_install_os_dependencies
+
+- import_tasks: pre-checks-environment.yml
+
+- import_tasks: get-version.yml
+  when: sshuttle_version is not defined
+        or not sshuttle_version
+
+- import_tasks: install-sshuttle.yml
+
+- import_tasks: post-checks-environment.yml

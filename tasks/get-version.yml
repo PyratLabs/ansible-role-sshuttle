@@ -1,0 +1,12 @@
+---
+
+- name: Get the version information of the latest release of sshuttle
+  uri:
+    url: https://pypi.org/pypi/sshuttle/json
+    return_content: true
+    body_format: json
+  register: sshuttle_get_latest_version
+
+- name: Ensure the sshuttle_version variable is set
+  set_fact:
+    sshuttle_version: "{{ sshuttle_get_latest_version.json.info.version }}"

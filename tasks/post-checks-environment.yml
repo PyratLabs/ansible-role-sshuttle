@@ -1,0 +1,34 @@
+---
+
+- name: Check to see if the sshuttle version directory exists
+  stat:
+    path: "{{ sshuttle_install_dir }}/sshuttle-{{ sshuttle_version }}"
+  register: sshuttle_check_version_dir
+
+- name: Fail if the sshuttle version directory doesn't exist
+  fail:
+    msg: "{{ sshuttle_install_dir }}/sshuttle-{{ sshuttle_version }} is missing after play."
+  when: not sshuttle_check_version_dir.stat.exists
+
+- name: Check to see if the sshuttle current symlink exists
+  stat:
+    path: "{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}"
+  register: sshuttle_check_symlink_dir
+
+- name: Fail if the sshuttle symlink directory doesn't exist
+  fail:
+    msg: "{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }} symlink not correct after play."
+  when: not sshuttle_check_symlink_dir.stat.exists
+        or not sshuttle_check_symlink_dir.stat.islnk
+        or sshuttle_check_symlink_dir.stat.lnk_target != (sshuttle_install_dir + "/sshuttle-" + sshuttle_version)
+
+- name: Check to see if the sshuttle version directory is a virtualenv
+  stat:
+    path: "{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}/bin/activate"
+  register: sshuttle_check_virtualenv_dir
+
+- name: Fail if the sshuttle virtualenv directory doesn't exist
+  fail:
+    msg: "{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}/bin/activate not found after play."
+  when: not sshuttle_check_virtualenv_dir.stat.exists
+        or not sshuttle_check_virtualenv_dir.stat.isreg
