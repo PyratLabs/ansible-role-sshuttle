@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "{{ awscli_install_dir }}/{{ awscli_current_dirname }}/bin/activate"
+source "{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}/bin/activate"
 
-{{ awscli_install_dir }}/{{ awscli_current_dirname }}/bin/{{ item }} $@
+{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}/bin/{{ item }} $@
 
 deactivate
