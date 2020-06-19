@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   become: true
-  become_user: awsuser
+  become_user: sshuttleuser
   roles:
-    - role: xanmanning.awscli
+    - role: xanmanning.sshuttle
