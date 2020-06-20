@@ -30,6 +30,7 @@ my spare time so I cannot promise a speedy fix delivery.
 | `sshuttle_version`                 | Use a specific version of sshuttle, eg. `1.0.0`. Specify `false` for latest. | `false`              |
 | `sshuttle_install_dir`             | Installation directory to put sshuttle virtual environments.                 | `$HOME/.virtualenvs` |
 | `sshuttle_current_dirname`         | Name for the currently active sshuttle Virtualenv.                           | sshuttle             |
+| `sshuttle_venv_site_packages`      | Allow venv to inherit packages from global site-packages.                    | `false`              |
 | `sshuttle_install_venv_helper`     | Install a venv helper to launch venv executables from a "bin" directory.     | `true`               |
 | `sshuttle_bin_dir`                 | "bin" directory to install venv-helpers to.                                  | `$HOME/bin`          |
 | `sshuttle_install_os_dependencies` | Allow role to install OS dependencies.                                       | `false`              |
