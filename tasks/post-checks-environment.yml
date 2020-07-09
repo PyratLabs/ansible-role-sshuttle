@@ -2,12 +2,12 @@
 
 - name: Check to see if the sshuttle version directory exists
   stat:
-    path: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}-{{ sshuttle_version }}"
+    path: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}-{{ sshuttle_venv_suffix }}"
   register: sshuttle_check_version_dir
 
 - name: Fail if the sshuttle version directory doesn't exist
   fail:
-    msg: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}-{{ sshuttle_version }} is missing after play."
+    msg: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}-{{ sshuttle_venv_suffix }} is missing after play."
   when: not sshuttle_check_version_dir.stat.exists
 
 - name: Check to see if the sshuttle current symlink exists
@@ -20,7 +20,7 @@
     msg: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }} symlink not correct after play."
   when: not sshuttle_check_symlink_dir.stat.exists
         or not sshuttle_check_symlink_dir.stat.islnk
-        or sshuttle_check_symlink_dir.stat.lnk_target != (sshuttle_install_dir + "/" + sshuttle_venv_name + "-" + sshuttle_version)
+        or sshuttle_check_symlink_dir.stat.lnk_target != (sshuttle_install_dir + "/" + sshuttle_venv_name + "-" + sshuttle_venv_suffix)
 
 - name: Check to see if the sshuttle version directory is a virtualenv
   stat:
