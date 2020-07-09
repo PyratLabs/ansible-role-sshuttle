@@ -1,11 +1,17 @@
 ---
 
+- name: Ensure the venv suffix is set
+  set_fact:
+    sshuttle_venv_suffix: "{{ sshuttle_version }}"
+  when: sshuttle_venv_suffix is not defined
+        or not sshuttle_venv_suffix
+
 - name: Ensure the sshuttle install directory exists
   file:
     path: "{{ sshuttle_install_dir }}"
     state: directory
 
-- name: Ensure the azure-cli bin directory exists
+- name: Ensure the sshuttle bin directory exists
   file:
     path: "{{ sshuttle_bin_dir }}"
     state: directory
@@ -21,7 +27,7 @@
     name: sshuttle
     version: "{{ sshuttle_version }}"
     state: present
-    virtualenv: "{{ sshuttle_install_dir }}/sshuttle-{{ sshuttle_version }}"
+    virtualenv: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}-{{ sshuttle_venv_suffix }}"
     virtualenv_command: "{{ sshuttle_python3_path }} -m venv"
     virtualenv_site_packages: "{{ sshuttle_venv_site_packages | default(False) }}"
 
@@ -32,14 +38,14 @@
 
 - name: Ensure the current release is symlinked in the install directory
   file:
-    src: "{{ sshuttle_install_dir }}/sshuttle-{{ sshuttle_version }}"
-    dest: "{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}"
+    src: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}-{{ sshuttle_venv_suffix }}"
+    dest: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}"
     state: link
 
 - name: Ensure venv wrapper exists in virtualenv bin directory
   template:
     src: venv.sh.j2
-    dest: "{{ sshuttle_install_dir }}/sshuttle-{{ sshuttle_version }}/bin/venv"
+    dest: "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}-{{ sshuttle_venv_suffix }}/bin/venv"
     mode: 0755
   loop:
     - python

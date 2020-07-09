@@ -29,7 +29,8 @@ my spare time so I cannot promise a speedy fix delivery.
 |------------------------------------|------------------------------------------------------------------------------|----------------------|
 | `sshuttle_version`                 | Use a specific version of sshuttle, eg. `1.0.0`. Specify `false` for latest. | `false`              |
 | `sshuttle_install_dir`             | Installation directory to put sshuttle virtual environments.                 | `$HOME/.virtualenvs` |
-| `sshuttle_current_dirname`         | Name for the currently active sshuttle Virtualenv.                           | sshuttle             |
+| `sshuttle_venv_name`               | Name for the sshuttle Virtualenv.                                            | sshuttle             |
+| `sshuttle_venv_suffix`             | Add a custom suffix to virtualenv.                                           | `sshuttle_version`   |
 | `sshuttle_venv_site_packages`      | Allow venv to inherit packages from global site-packages.                    | `false`              |
 | `sshuttle_install_venv_helper`     | Install a venv helper to launch venv executables from a "bin" directory.     | `true`               |
 | `sshuttle_bin_dir`                 | "bin" directory to install venv-helpers to.                                  | `$HOME/bin`          |
@@ -60,18 +61,18 @@ Example playbook for installing the latest sshuttle version globally:
     sshuttle_install_os_dependencies: true
     sshuttle_install_dir: /opt/sshuttle/bin
     sshuttle_bin_dir: /usr/bin
-    sshuttle_current_dirname: current
+    sshuttle_venv_name: current
   roles:
     - role: xanmanning.sshuttle
 ```
 
 ### Activating the sshuttle venv
 
-You need to activate the python3 virtual environment to be able to access `az`.
+You need to activate the python3 virtual environment to be able to access `sshuttle`.
 This is done as per the below:
 
 ```bash
-source {{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}/bin/activate
+source {{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}/bin/activate
 ```
 
 In the above example global installation playbook, this would look like the

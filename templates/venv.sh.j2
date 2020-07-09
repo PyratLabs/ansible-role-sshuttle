@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}/bin/activate"
+source "{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}/bin/activate"
 
-{{ sshuttle_install_dir }}/{{ sshuttle_current_dirname }}/bin/{{ item }} $@
+{{ sshuttle_install_dir }}/{{ sshuttle_venv_name }}/bin/{{ item }} $@
 
 deactivate

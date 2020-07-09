@@ -6,8 +6,11 @@ sshuttle_version: false
 # Installation directory to put sshuttle virtual environments.
 sshuttle_install_dir: "{{ ansible_user_dir }}/.virtualenvs"
 
-# Name for the currently active sshuttle Virtualenv.
-sshuttle_current_dirname: sshuttle
+# Name for the sshuttle Virtualenv.
+sshuttle_venv_name: sshuttle
+
+# Add a custom suffix to virtualenv (default: sshuttle_version)
+sshuttle_venv_suffix: false
 
 # Allow venv to inherit packages from global site-packages
 sshuttle_venv_site_packages: false
